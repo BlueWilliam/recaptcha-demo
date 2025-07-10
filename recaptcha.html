@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <title>reCAPTCHA</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <script>
       function onSubmit(token) {
@@ -14,33 +14,24 @@
       html, body {
         margin: 0;
         padding: 0;
-        background-color: #f9f9f9;
-        overflow: hidden;
+        height: 100vh;
+        width: 100vw;
+        background: #f9f9f9;
         display: flex;
         justify-content: center;
         align-items: center;
-        height: 100vh;
-        width: 100vw;
-      }
-
-      .recaptcha-wrapper {
-        width: 100%;
-        max-width: 302px;
-        padding: 0 10px;
-        box-sizing: border-box;
       }
 
       .g-recaptcha {
-        width: 100%;
+        transform: scale(1);
+        transform-origin: center;
       }
     </style>
   </head>
   <body>
-    <div class="recaptcha-wrapper">
-      <div class="g-recaptcha"
-           data-sitekey="6LepCX4rAAAAAKjRUrPqOWu69AZ23G96bo5JLr5a"
-           data-callback="onSubmit">
-      </div>
+    <div class="g-recaptcha"
+         data-sitekey="6LepCX4rAAAAAKjRUrPqOWu69AZ23G96bo5JLr5a"
+         data-callback="onSubmit">
     </div>
   </body>
 </html>
