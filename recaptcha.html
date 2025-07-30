@@ -9,11 +9,9 @@
       function onSubmit(token) {
         const ua = navigator.userAgent || navigator.vendor;
 
-        if (window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.recaptchaHandler) {
-          // iOS bridge
+        if (window.webkit?.messageHandlers?.recaptchaHandler) {
           window.webkit.messageHandlers.recaptchaHandler.postMessage(token);
-        } else if (window.Android && typeof window.Android.onToken === "function") {
-          // Android bridge
+        } else if (window.Android?.onToken) {
           window.Android.onToken(token);
         } else {
           console.log("No native handler found for reCAPTCHA token.");
@@ -24,14 +22,17 @@
       html, body {
         margin: 0;
         padding: 0;
-        height: 100vh;
-        width: 100vw;
-        background: #f9f9f9;
+        height: 100%;
+        width: 100%;
+      }
+
+      body {
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
         font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+        background: #f9f9f9;
       }
 
       .description {
