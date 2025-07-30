@@ -1,61 +1,56 @@
 <!DOCTYPE html>
-<html style="height:100%;">
-  <head>
-    <meta charset="UTF-8" />
-    <title>reCAPTCHA</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="https://www.google.com/recaptcha/api.js?hl=zh-TW" async defer></script>
-    <script>
-      function onSubmit(token) {
-        if (window.webkit?.messageHandlers?.recaptchaHandler) {
-          window.webkit.messageHandlers.recaptchaHandler.postMessage(token); // iOS
-        } else if (window.Android?.onToken) {
-          window.Android.onToken(token); // Android
-        } else {
-          console.log("No handler found");
-        }
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8" />
+  <title>reCAPTCHA</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://www.google.com/recaptcha/api.js?hl=zh-TW" async defer></script>
+  <script>
+    function onSubmit(token) {
+      // Android callback
+      if (window.Android && Android.onToken) {
+        Android.onToken(token);
       }
-    </script>
-    <style>
-      html, body {
-        margin: 0;
-        padding: 0;
-        height: 100%;
-        width: 100%;
-        background-color: #f9f9f9;
+      // iOS callback
+      if (window.webkit?.messageHandlers?.recaptchaHandler) {
+        window.webkit.messageHandlers.recaptchaHandler.postMessage(token);
       }
+    }
+  </script>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      background-color: #f9f9f9;
+      font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+    }
 
-      .container {
-        height: 100vh;
-        width: 100vw;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        box-sizing: border-box;
-        font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
-        padding: 0 16px;
-      }
+    .container {
+      max-width: 90%;
+      margin: 60px auto; /* Give breathing space from top */
+      padding: 16px;
+      text-align: center;
+    }
 
-      .description {
-        margin-bottom: 16px;
-        font-size: 16px;
-        color: #333;
-        text-align: center;
-      }
+    .description {
+      font-size: 16px;
+      color: #333;
+      margin-bottom: 16px;
+    }
 
-      .g-recaptcha {
-        transform-origin: center;
-      }
-    </style>
-  </head>
-  <body>
-    <div class="container">
-      <div class="description">為了保護您的安全，請完成下方的 reCAPTCHA 驗證</div>
-      <div class="g-recaptcha"
-           data-sitekey="6LepCX4rAAAAAKjRUrPqOWu69AZ23G96bo5JLr5a"
-           data-callback="onSubmit">
-      </div>
-    </div>
-  </body>
+    .g-recaptcha {
+      display: inline-block;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="description">為了保護您的安全，請完成下方的 reCAPTCHA 驗證</div>
+  <div class="g-recaptcha"
+       data-sitekey="6LepCX4rAAAAAKjRUrPqOWu69AZ23G96bo5JLr5a"
+       data-callback="onSubmit">
+  </div>
+</div>
+</body>
 </html>
