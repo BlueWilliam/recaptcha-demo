@@ -7,32 +7,35 @@
     <script src="https://www.google.com/recaptcha/api.js?hl=zh-TW" async defer></script>
     <script>
       function onSubmit(token) {
-        const ua = navigator.userAgent || navigator.vendor;
-
         if (window.webkit?.messageHandlers?.recaptchaHandler) {
+          // For iOS
           window.webkit.messageHandlers.recaptchaHandler.postMessage(token);
         } else if (window.Android?.onToken) {
+          // For Android
           window.Android.onToken(token);
         } else {
-          console.log("No native handler found for reCAPTCHA token.");
+          console.log("No platform handler found");
         }
       }
     </script>
     <style>
-      html, body {
+      html,
+      body {
+        height: 100%;
         margin: 0;
         padding: 0;
-        height: 100%;
-        width: 100%;
+        background: #f9f9f9;
       }
 
-      body {
+      .container {
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        height: 100%;
         font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
-        background: #f9f9f9;
+        padding: 0 20px;
+        box-sizing: border-box;
       }
 
       .description {
@@ -40,7 +43,6 @@
         font-size: 16px;
         color: #333;
         text-align: center;
-        padding: 0 20px;
       }
 
       .g-recaptcha {
@@ -50,12 +52,14 @@
     </style>
   </head>
   <body>
-    <div class="description">
-      為了保護您的安全，請完成下方的 reCAPTCHA 驗證
-    </div>
-    <div class="g-recaptcha"
-         data-sitekey="6LepCX4rAAAAAKjRUrPqOWu69AZ23G96bo5JLr5a"
-         data-callback="onSubmit">
+    <div class="container">
+      <div class="description">
+        為了保護您的安全，請完成下方的 reCAPTCHA 驗證
+      </div>
+      <div class="g-recaptcha"
+           data-sitekey="6LepCX4rAAAAAKjRUrPqOWu69AZ23G96bo5JLr5a"
+           data-callback="onSubmit">
+      </div>
     </div>
   </body>
 </html>
