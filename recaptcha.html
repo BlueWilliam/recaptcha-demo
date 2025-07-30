@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html style="height:100%;">
   <head>
     <meta charset="UTF-8" />
     <title>reCAPTCHA</title>
@@ -8,34 +8,33 @@
     <script>
       function onSubmit(token) {
         if (window.webkit?.messageHandlers?.recaptchaHandler) {
-          // For iOS
-          window.webkit.messageHandlers.recaptchaHandler.postMessage(token);
+          window.webkit.messageHandlers.recaptchaHandler.postMessage(token); // iOS
         } else if (window.Android?.onToken) {
-          // For Android
-          window.Android.onToken(token);
+          window.Android.onToken(token); // Android
         } else {
-          console.log("No platform handler found");
+          console.log("No handler found");
         }
       }
     </script>
     <style>
-      html,
-      body {
-        height: 100%;
+      html, body {
         margin: 0;
         padding: 0;
-        background: #f9f9f9;
+        height: 100%;
+        width: 100%;
+        background-color: #f9f9f9;
       }
 
       .container {
+        height: 100vh;
+        width: 100vw;
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        height: 100%;
-        font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
-        padding: 0 20px;
         box-sizing: border-box;
+        font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+        padding: 0 16px;
       }
 
       .description {
@@ -46,16 +45,13 @@
       }
 
       .g-recaptcha {
-        transform: scale(1);
         transform-origin: center;
       }
     </style>
   </head>
   <body>
     <div class="container">
-      <div class="description">
-        為了保護您的安全，請完成下方的 reCAPTCHA 驗證
-      </div>
+      <div class="description">為了保護您的安全，請完成下方的 reCAPTCHA 驗證</div>
       <div class="g-recaptcha"
            data-sitekey="6LepCX4rAAAAAKjRUrPqOWu69AZ23G96bo5JLr5a"
            data-callback="onSubmit">
